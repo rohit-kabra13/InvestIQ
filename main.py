@@ -17,3 +17,12 @@ def show_portfolio():
         print(ticker, portfolio[ticker])
 
 show_portfolio()
+
+watchlist = {"NFLX": 400, "AMZN": 130}
+
+def show_holdings(holdings):
+    for ticker in holdings:
+        print(ticker, holdings[ticker])
+
+show_holdings(portfolio)
+show_holdings(watchlist)
