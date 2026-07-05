@@ -37,3 +37,25 @@ elif tsla_price < 200:
     print("Hold")
 else:
     print("Sell")
+
+new_holdings = {"MSFT": 310, "NFLX":420, "PLTR": 18}
+
+
+def show_new_holdings(recommendation):
+    for ticker in recommendation:
+        if recommendation[ticker] < 20:
+            print(ticker, "Strong Buy")
+        elif recommendation[ticker] > 20 and recommendation[ticker] <= 200:
+            print(ticker, "Buy")
+        elif recommendation[ticker] > 200 and recommendation[ticker] <= 400:
+            print(ticker, "Hold")
+        else:
+            print(ticker, "Sell")
+show_new_holdings(new_holdings)
+
+
+price = 45
+sector = "Tech"
+
+if price < 30 or sector != "Tech":
+    print("Watch this one")
