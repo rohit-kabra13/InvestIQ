@@ -71,4 +71,9 @@ for ticker in tickers:
     stock = yf.Ticker(ticker)
     current_price = stock.info["currentPrice"]
     open_price = stock.info["open"]
-    print(f"{ticker}: Current- {current_price} vs Open- {open_price}")
+    if current_price < open_price:
+        print(f"{ticker}: Current- {current_price} vs Open- {open_price} -> Strong Buy")
+    elif current_price > open_price:
+        print(f"{ticker}: Current- {current_price} vs Open- {open_price} -> Sell")
+    elif current_price == open_price:
+        print(f"{ticker}: Current- {current_price} vs Open- {open_price} -> Hold")
