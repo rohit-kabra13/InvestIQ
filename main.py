@@ -65,5 +65,10 @@
 
 import yfinance as yf
 
-tesla = yf.Ticker("TSLA")
-print(tesla.info["currentPrice"])
+tickers = ["MSFT", "NFLX", "AMZN", "META", "NVDA"]
+
+for ticker in tickers:
+    stock = yf.Ticker(ticker)
+    current_price = stock.info["currentPrice"]
+    open_price = stock.info["open"]
+    print(f"{ticker}: Current- {current_price} vs Open- {open_price}")
