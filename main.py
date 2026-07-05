@@ -65,15 +65,28 @@
 
 import yfinance as yf
 
-tickers = ["MSFT", "NFLX", "AMZN", "META", "NVDA"]
+tickers = ["FKAE1", "MSFT", "NFLX", "AMZN", "TSLA", "RDW", "PLTR", "QBTS", "NVDA", "AMD", "GOOG", "FAKE2", "VOO", "VTI", "SCHD", "SPCX", "NOLIST"]
 
 for ticker in tickers:
-    stock = yf.Ticker(ticker)
-    current_price = stock.info["currentPrice"]
-    open_price = stock.info["open"]
-    if current_price < open_price:
-        print(f"{ticker}: Current- {current_price} vs Open- {open_price} -> Strong Buy")
-    elif current_price > open_price:
-        print(f"{ticker}: Current- {current_price} vs Open- {open_price} -> Sell")
-    elif current_price == open_price:
-        print(f"{ticker}: Current- {current_price} vs Open- {open_price} -> Hold")
+    try:
+        stock = yf.Ticker(ticker)
+        if "currentPrice" in stock.info:
+            current_price = stock.info["currentPrice"]
+        else:
+            print(f"{ticker} no price data available")
+            continue
+        if "open" in stock.info:
+            open_price = stock.info["open"]
+        else:
+            print(f"{ticker} no price data available")
+            continue
+        if current_price < open_price:
+            print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Strong Buy")
+        elif current_price > open_price:
+            print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Buy")
+        elif current_price == open_price:
+            print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Buy")
+    except KeyError:
+        print(f"{ticker} exists but is missing price data")
+    except:
+        print(f"{ticker} doesn't exist")
