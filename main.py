@@ -28,7 +28,12 @@ show_holdings(portfolio)
 show_holdings(watchlist)
 
 tsla_price = portfolio["TSLA"]
-if tsla_price < 100:
-    print("Buying opportunity")
-else:
+
+if tsla_price < 50:
+    print("Strong Buy")
+elif tsla_price < 100:
+    print("Buy")
+elif tsla_price < 200:
     print("Hold")
+else:
+    print("Sell")
