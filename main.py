@@ -165,3 +165,42 @@ for ticker in tickers:
         print("f{ticker} doesn't exist")
 
 
+# Using Append to identify the List
+
+tickers = ["MSFT", "DIS", "BA"]
+
+def get_health_score(percent_change, distance_from_high):
+    if percent_change < 0 and distance_from_high > 0.03:
+        return "Weak"
+    if percent_change < 0 and distance_from_high <= 0.03:
+        return "Recovering"
+    if percent_change >= 0:
+        return "Strong"
+weak_stocks =[]
+for ticker in tickers:
+    try:
+        stock = yf.Ticker(ticker)
+        if "currentPrice" in stock.info:
+            current_price = stock.info["currentPrice"]
+        else:
+            print(f"No price data available")
+            continue
+        if "open" in stock.info:
+            open_price = stock.info["open"]
+        else:
+            print(f"No price data available")
+            continue
+        if "dayHigh" in stock.info:
+            days_high = stock.info["dayHigh"]
+        else:
+            print(f"No Price Data Available")
+            continue
+        percent_change = (current_price - open_price) / open_price
+        distance_from_high = (days_high - current_price) / days_high
+        result =  get_health_score(percent_change, distance_from_high)
+        if result == "Recovering":
+            weak_stocks.append(ticker)
+        # print(f"{ticker}- Current: {current_price} Day's High: {days_high} Percent Change: {percent_change} Distance from High: {distance_from_high} --> {result}")
+    except:
+        print("f{ticker} doesn't exist")
+print(weak_stocks)
