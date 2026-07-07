@@ -63,9 +63,38 @@
 
 # --------------------- End of Practice ----------------------------
 
-import yfinance as yf
+# import yfinance as yf
 
-tickers = ["FKAE1", "MSFT", "NFLX", "AMZN", "TSLA", "RDW", "PLTR", "QBTS", "NVDA", "AMD", "GOOG", "FAKE2", "VOO", "VTI", "SCHD", "SPCX", "NOLIST"]
+# tickers = ["FKAE1", "MSFT", "NFLX", "AMZN", "TSLA", "RDW", "PLTR", "QBTS", "NVDA", "AMD", "GOOG", "FAKE2", "VOO", "VTI", "SCHD", "SPCX", "NOLIST"]
+
+# for ticker in tickers:
+#     try:
+#         stock = yf.Ticker(ticker)
+#         if "currentPrice" in stock.info:
+#             current_price = stock.info["currentPrice"]
+#         else:
+#             print(f"{ticker} no price data available")
+#             continue
+#         if "open" in stock.info:
+#             open_price = stock.info["open"]
+#         else:
+#             print(f"{ticker} no price data available")
+#             continue
+#         if current_price < open_price:
+#             print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Strong Buy")
+#         elif current_price > open_price:
+#             print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Buy")
+#         elif current_price == open_price:
+#             print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Buy")
+#     except KeyError:
+#         print(f"{ticker} exists but is missing price data")
+#     except:
+#         print(f"{ticker} doesn't exist")
+
+
+
+import yfinance as yf
+tickers = ["AAPL", "COIN", "GME", "KO", "SMCI"]
 
 for ticker in tickers:
     try:
@@ -73,20 +102,19 @@ for ticker in tickers:
         if "currentPrice" in stock.info:
             current_price = stock.info["currentPrice"]
         else:
-            print(f"{ticker} no price data available")
+            print(f"No price data available")
             continue
         if "open" in stock.info:
             open_price = stock.info["open"]
         else:
-            print(f"{ticker} no price data available")
+            print(f"No price data available")
             continue
-        if current_price < open_price:
-            print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Strong Buy")
-        elif current_price > open_price:
-            print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Buy")
-        elif current_price == open_price:
-            print(f"{ticker}- Current: {current_price} vs Open: {open_price} --> Buy")
-    except KeyError:
-        print(f"{ticker} exists but is missing price data")
+        percent_change = (current_price - open_price) / open_price
+        if percent_change < -0.05:
+            print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change} --> High Risk - Dropping Fast")
+        elif percent_change >= -0.05 and percent_change < 0:
+            print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change}  --> Mild Dip")
+        else:
+            print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change}  --> Stable or Rising")
     except:
         print(f"{ticker} doesn't exist")
