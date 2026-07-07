@@ -94,8 +94,16 @@
 
 
 import yfinance as yf
+
 tickers = ["AAPL", "COIN", "GME", "KO", "SMCI"]
 
+def get_recommendation(percent_change):
+    if percent_change < -0.05:
+        return "High Risk - Dropping Fast"
+    elif percent_change >= -0.05 and percent_change < 0:
+        return "Mild Dip"
+    else:
+        return "Stable or Rising"
 for ticker in tickers:
     try:
         stock = yf.Ticker(ticker)
@@ -110,11 +118,13 @@ for ticker in tickers:
             print(f"No price data available")
             continue
         percent_change = (current_price - open_price) / open_price
-        if percent_change < -0.05:
-            print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change} --> High Risk - Dropping Fast")
-        elif percent_change >= -0.05 and percent_change < 0:
-            print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change}  --> Mild Dip")
-        else:
-            print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change}  --> Stable or Rising")
+        # if percent_change < -0.05:
+        #     print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change} --> High Risk - Dropping Fast")
+        # elif percent_change >= -0.05 and percent_change < 0:
+        #     print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change}  --> Mild Dip")
+        # else:
+        #     print(f"{ticker} Current- {current_price} Open- {open_price} Percent Change: {percent_change}  --> Stable or Rising")
+        result = get_recommendation(percent_change)
+        print(f"{ticker}- Current: {current_price} Open: {open_price} Percent Change: {percent_change} --> {result}")
     except:
         print(f"{ticker} doesn't exist")
