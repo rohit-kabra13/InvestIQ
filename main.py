@@ -218,8 +218,8 @@ def classify_move(percent_change):
         return "Loser"
     else:
         return "Flat"
-gainer = []
-loser = []
+gainer = {}
+loser = {}
 for ticker in tickers:
     try:
         stock = yf.Ticker(ticker)
@@ -236,9 +236,9 @@ for ticker in tickers:
         percent_change = (current_price - open_price) / open_price
         result = classify_move(percent_change)
         if result == "Gainer":
-            gainer.append(ticker)
+            gainer[ticker] = round(percent_change, 4)
         elif result == "Loser":
-            loser.append(ticker)
+            loser[ticker] = round(percent_change, 4)
     except:
         print(f"Ticker not available")
 print (f"Gainer: {gainer}")
