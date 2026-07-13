@@ -326,5 +326,13 @@ for ticker in tickers:
             best_change = percent_change
     except:
         print(f"Not available")
+for ticker, data in report.items():
+    print(f"{ticker}: Current - {data['current']} Open - {data['open']} Change - {data['change']} Rating - {data['rating']}")
+    
+all_changes = []
+for ticker, data in report.items():
+    all_changes.append(data["change"])
+
 
 print(f"🏆 Best performer: {best_ticker} at {best_change}")
+print(max(all_changes))
